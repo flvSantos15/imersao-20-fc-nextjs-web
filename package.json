@@ -11,6 +11,7 @@
   "dependencies": {
     "@googlemaps/google-maps-services-js": "^3.4.0",
     "@googlemaps/js-api-loader": "^1.16.8",
+    "@types/google.maps": "^3.58.1",
     "lodash": "^4.17.21",
     "next": "15.0.4",
     "react": "^19.0.0",

@@ -5,7 +5,7 @@ import { useEffect, useRef } from 'react'
 import { useMap } from '@/hooks/useMap'
 import { DirectionsData } from '@/utils/models'
 
-type MapNewRouteProps = {
+export type MapNewRouteProps = {
   directionsData: DirectionsData
 }
 
