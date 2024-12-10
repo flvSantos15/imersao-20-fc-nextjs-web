@@ -5,7 +5,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        default: '#242526'
+        default: '#242526',
+        main: '#ffcd00',
+        error: '#f35759',
+        success: '#366912',
+        contrast: '#ffffff'
       }
     }
   },
