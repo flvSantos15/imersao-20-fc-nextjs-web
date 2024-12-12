@@ -59,6 +59,10 @@ export function MapDriver(props: MapDriverProps) {
         map.moveCar(data.route_id, { lat: data.lat, lng: data.lng })
       }
     )
+
+    return () => {
+      socket.disconnect()
+    }
   }, [route_id, map, start_location, end_location])
 
   return <div className="w-2/3 h-full" ref={mapContainerRef} />

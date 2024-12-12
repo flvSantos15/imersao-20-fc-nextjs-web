@@ -12,14 +12,6 @@ export default function AdminPage() {
   useEffect(() => {
     if (!map) return
 
-    // if (socket.disconnected) {
-    //   socket.connect()
-    // } else {
-    //   socket.offAny()
-    // }
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    socket.disconnected ? socket.connect() : socket.offAny()
-
     socket.on(
       `server:new-points:list`,
       async (data: { route_id: string; lat: number; lng: number }) => {
@@ -46,6 +38,10 @@ export default function AdminPage() {
         map.moveCar(data.route_id, { lat: data.lat, lng: data.lng })
       }
     )
+
+    return () => {
+      socket.disconnect()
+    }
   }, [map])
 
   return <div className="h-full w-full" ref={mapContainerRef} />
