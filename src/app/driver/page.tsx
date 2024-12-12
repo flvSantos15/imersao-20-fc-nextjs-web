@@ -12,6 +12,17 @@ export async function getRoutes() {
   return response.json()
 }
 
+export async function getRoute(route_id: string): Promise<RouteModel> {
+  const response = await fetch(`http://localhost:3000/routes/${route_id}`, {
+    cache: 'force-cache',
+    next: {
+      tags: [`routes-${route_id}`, 'routes']
+    }
+  })
+
+  return response.json()
+}
+
 export default async function DriverPage({
   searchParams
 }: {
@@ -19,6 +30,23 @@ export default async function DriverPage({
 }) {
   const routes = await getRoutes()
   const { route_id } = await searchParams
+
+  let start_location = null
+  let end_location = null
+  if (route_id) {
+    const route = await getRoute(route_id)
+    const leg = route.directions.routes[0].legs[0]
+
+    start_location = {
+      lat: leg.start_location.lat,
+      lng: leg.start_location.lng
+    }
+    end_location = {
+      lat: leg.end_location.lat,
+      lng: leg.end_location.lng
+    }
+  }
+
   return (
     <div className="flex flex-1 w-full h-full">
       <div className="w-1/3 p-2 h-full">
@@ -44,7 +72,11 @@ export default async function DriverPage({
         </div>
       </div>
 
-      <MapDriver route_id={route_id} />
+      <MapDriver
+        route_id={route_id}
+        start_location={start_location}
+        end_location={end_location}
+      />
     </div>
   )
 }
